@@ -21,10 +21,11 @@ const ENV = Object.values(Environment).includes(process.env.NODE_ENV as Environm
 const ENV_FILE_PATH = `${process.cwd()}/.env.${ENV}`;
 const COMMON_ENV_FILE_PATH = `${process.cwd()}/.env.common`;
 
+// Note : dotenv gives higher precedence to variables defined in the FIRST file loaded.
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [COMMON_ENV_FILE_PATH, ENV_FILE_PATH],
+      envFilePath: [ENV_FILE_PATH, COMMON_ENV_FILE_PATH],
       isGlobal: true,
     }),
   ],
